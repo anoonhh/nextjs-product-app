@@ -42,18 +42,20 @@ const AddProductPage = () => {
     const handleSubmit = async(e: React.FormEvent) => {
         e.preventDefault()
 
-        //getting api products
-        const res = await api.get('')
-        const apiProducts = res.data.products
+        // //method for generating id for new product
+        // //getting api products
+        // const res = await api.get('')
+        // const apiProducts = res.data.products
 
-        //getting local products
-        const local = localStorage.getItem('product')
-        const localProducts: AddProduct[] = local ? JSON.parse(local) : [];
+        // //getting local products
+        // const local = localStorage.getItem('product')
+        // const localProducts: AddProduct[] = local ? JSON.parse(local) : [];
 
-        //spreading both products into an array and assign id
-        const totalProducts = [...apiProducts,...localProducts]
-        const newId = totalProducts.length + 1
+        // //spreading both products into an array and assign id
+        // const totalProducts = [...apiProducts,...localProducts]
+        // const newId = totalProducts.length + 1
 
+        const newId = Date.now()
         const newProduct = {
             ...product,
             id: newId
@@ -62,6 +64,10 @@ const AddProductPage = () => {
         await api.post('/add' , newProduct)
         .then(()=> {
             alert("Successfully added")
+
+            //getting local products
+            const local = localStorage.getItem('product')
+            const localProducts: AddProduct[] = local ? JSON.parse(local) : [];
 
             //setting multiple product in localstorage
             const updatedProducts = [...localProducts, newProduct]

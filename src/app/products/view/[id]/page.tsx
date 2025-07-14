@@ -11,21 +11,31 @@ const ProductPage = () => {
   const [product, setProduct] = useState<ProductType | null>(null )
 
   const params = useParams()
-  const id = params?.id
+  const id = Number(params?.id)
 
   const router = useRouter()
 
   useEffect(() => {
-    const local = localStorage.getItem('updatedproduct')
-    if(local){
-      const updatedProduct = JSON.parse(local)
-
-      if(updatedProduct.id == id){
-        setProduct(updatedProduct)
+    const updatedProduct = localStorage.getItem('updatedproduct')
+    const localProduct = localStorage.getItem('product')
+    
+    if(updatedProduct){
+      const parsed = JSON.parse(updatedProduct)
+      if(parsed.id == id){
+        setProduct(parsed)
         return
       }
     }
     
+    if(localProduct){
+      const parsedLocal = JSON.parse(localProduct)
+     const foundLocal = parsedLocal.find((p: ProductType) => Number(p.id) === id);
+      if (foundLocal) {
+        setProduct(foundLocal);
+        return;
+      }
+    }
+
     //api call should be outside
     api.get(`/${id}`)
       .then((res) => {
