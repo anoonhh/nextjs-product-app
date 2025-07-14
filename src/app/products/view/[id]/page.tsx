@@ -18,17 +18,23 @@ const ProductPage = () => {
   useEffect(() => {
     const local = localStorage.getItem('updatedproduct')
     if(local){
-      setProduct(JSON.parse(local))
-    }
-    else{
-      api.get(`/${id}`)
-        .then((res) => {
-          setProduct(res.data)
-        })
-        .catch(() => {
-          alert('Failed to fetch product.')
-        })
+      const updatedProduct = JSON.parse(local)
+
+      if(updatedProduct.id == id){
+        setProduct(updatedProduct)
+        return
       }
+    }
+    
+    //api call should be outside
+    api.get(`/${id}`)
+      .then((res) => {
+        setProduct(res.data)
+      })
+      .catch(() => {
+        alert('Failed to fetch product.')
+      })
+      
 
   }, [id])
 
@@ -64,6 +70,7 @@ const ProductPage = () => {
 
     }catch(err){
       alert("product not deleted")
+      console.log(err)
     }
   }
 

@@ -1,7 +1,7 @@
 'use client'
 
 import Header from '@/components/Header'
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import {api} from '@/app/lib/api'
 import { useRouter } from 'next/navigation'
 
@@ -16,7 +16,7 @@ interface AddProduct {
     brand: string
 }
 
-const page = () => {
+const AddProductPage = () => {
 
     const [product , setProduct] = useState<AddProduct>({
         id:0,
@@ -176,4 +176,4 @@ const page = () => {
   )
 }
 
-export default page
+export default AddProductPage

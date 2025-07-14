@@ -1,7 +1,6 @@
 'use client'
 
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import {api} from '@/app/lib/api.js'
 import { ProductType } from "@/types/product";
@@ -40,7 +39,6 @@ export default function Home(
       const local = localStorage.getItem('product')
       const localProduct :ProductType[]= local ? JSON.parse(local) : []
       
-    
       setProduct([...updatedApiProducts,...localProduct])
 
     })

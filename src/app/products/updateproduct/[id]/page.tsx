@@ -16,7 +16,7 @@ interface UpdateType {
   stock: number
 }
 
-const page = () => {
+const UpdateProductPage = () => {
 
   const [product , setProduct] = useState<UpdateType>({  
     title: '',
@@ -38,9 +38,10 @@ const page = () => {
     .then((res) => {
       setProduct(res.data)
     })
-    .catch((err) => {
+    .catch(() => {
       alert('Error fetching data!!!')
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
 
@@ -56,6 +57,7 @@ const page = () => {
      e.preventDefault();
 
     console.log(typeof id,"type of id")
+    
     await api.patch(`/${id}`, {
       title: product.title,
       price: product.price,
@@ -181,4 +183,4 @@ const page = () => {
   )
 }
 
-export default page
+export default UpdateProductPage
